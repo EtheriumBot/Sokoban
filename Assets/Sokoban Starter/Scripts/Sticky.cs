@@ -87,13 +87,17 @@ public class Sticky : MonoBehaviour
             for (int i = 0; i < stickys.Length; i++)
             {
                 Vector2Int stickyPos = stickys[i].GetComponent<Sticky>().gridPos;
-                if (stickyPos.x == oldGridPos.x - 1 && stickyPos.y == oldGridPos.y || stickyPos.x == oldGridPos.x + 1 && stickyPos.y == oldGridPos.y || //Left or right of where player was 
-                    stickyPos.y == oldGridPos.y - 1 && stickyPos.x == oldGridPos.x || stickyPos.y == oldGridPos.y + 1 && stickyPos.x == oldGridPos.x) //Above or below where player was
+
+                if (otherOldGridPos != stickyPos)
                 {
-                    if (commitChange)
+                    if (stickyPos.x == oldGridPos.x - 1 && stickyPos.y == oldGridPos.y || stickyPos.x == oldGridPos.x + 1 && stickyPos.y == oldGridPos.y || //Left or right of where player was 
+                        stickyPos.y == oldGridPos.y - 1 && stickyPos.x == oldGridPos.x || stickyPos.y == oldGridPos.y + 1 && stickyPos.x == oldGridPos.x) //Above or below where player was
                     {
-                        commitChange = stickys[i].GetComponent<Sticky>().Moving(oldGridPos, newGridPos);
-                        //Debug.Log("Can't Move!");
+                        if (commitChange)
+                        {
+                            commitChange = stickys[i].GetComponent<Sticky>().Moving(oldGridPos, newGridPos);
+                            //Debug.Log("Can't Move!");
+                        }
                     }
                 }
             }
